@@ -1,10 +1,8 @@
 const Book = require('../models/Book');
-const express = require('express')
-const app = express()
 const mongoose = require('mongoose')
 
 mongoose
-    .connect('mongodb://127.0.0.1:27017/bookstore', { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
       console.log("connected....")
     })
@@ -244,7 +242,7 @@ const bookSeeds = [
 ]
 
 
-const seedDB = async () => {
+export const seedDB = async () => {
   await Book.deleteMany({});
   await Book.insertMany(bookSeeds);
 }
